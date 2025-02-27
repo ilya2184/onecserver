@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 # Копируем все deb что рядом внутрь контейнера в tmp
-COPY setup-full-8.3.25.1394-x86_64.run /tmp/
+COPY setup-full-8.3.25.1546-x86_64.run /tmp/
 
 # Копируем скрипты конфиг лога
 COPY docker-entrypoint.sh /
@@ -23,10 +23,12 @@ RUN apt-get update \
     && mkdir --parents /home/usr1cv8/srvinfo \
     && mkdir --parents /var/log/1C /home/usr1cv8/.1cv8/1C/1cv8/conf \
     && chown --recursive usr1cv8:grp1cv8 /var/log/1C /home/usr1cv8 \
-    && chmod +x /tmp/setup-full-8.3.25.1394-x86_64.run \
-    && ./tmp/setup-full-8.3.25.1394-x86_64.run --mode unattended --enable-components server,ws \
-    && rm /tmp/setup-full-8.3.25.1394-x86_64.run \
+    && chmod +x /tmp/setup-full-8.3.25.1546-x86_64.run \
+    && ./tmp/setup-full-8.3.25.1546-x86_64.run --mode unattended --enable-components server,ws \
+    && rm /tmp/setup-full-8.3.25.1546-x86_64.run \
     && chmod +x /docker-entrypoint.sh
+
+ENV PATH="/opt/1cv8/x86_64/8.3.25.1546/:${PATH}"
 
 COPY logcfg.xml /home/usr1cv8/.1cv8/1C/1cv8/conf
 
